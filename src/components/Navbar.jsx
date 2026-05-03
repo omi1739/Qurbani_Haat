@@ -3,6 +3,8 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import logo from "@/assets/logo.png"
+import Image from "next/image";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -73,7 +75,7 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link href="/" className="btn btn-ghost text-xl font-bold">
-          <span className="text-2xl">🐄</span> QurbaniHaat
+          <Image src={logo} width={150} height={100} ></Image> 
         </Link>
       </div>
 
@@ -125,7 +127,7 @@ const Navbar = () => {
             <Link href="/sign-in" className="btn btn-outline btn-sm">
               Sign In
             </Link>
-            <Link href="/sign-up" className="btn btn-primary btn-sm">
+            <Link href="/sign-up" className="btn btn-neutral btn-sm">
               Sign Up
             </Link>
           </>
