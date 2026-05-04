@@ -6,22 +6,37 @@ import google from "@/assets/google.jpg";
 import github from "@/assets/github.png";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const SignUpPage = () => {
+  const router = useRouter();
 
+  const {register, handleSubmit, formState: {errors}} = useForm()
 
-const {register, handleSubmit, formState: {errors}} = useForm()
-
-
- const handleGoogleSignin = async () => {
-    const data = await authClient.signIn.social({
-      provider: "google",
-    });
+  const handleGoogleSignin = async () => {
+    try {
+      const data = await authClient.signIn.social({
+        provider: "google",
+      });
+      if (data) {
+        router.push("/my-profile");
+      }
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+    }
   };
+
   const handleGitHubSignin = async () => {
-    const data = await authClient.signIn.social({
-      provider: "github",
-    });
+    try {
+      const data = await authClient.signIn.social({
+        provider: "github",
+      });
+      if (data) {
+        router.push("/my-profile");
+      }
+    } catch (error) {
+      console.error("GitHub sign-in error:", error);
+    }
   };
 
 

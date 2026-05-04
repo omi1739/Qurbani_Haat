@@ -6,11 +6,11 @@ import defaultAvatar from "@/assets/userAvater.jpg";
 import { authClient } from "@/lib/auth-client";
 
 export default function MyProfile() {
-  const { data: session, isPending: loading } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
 
   const user = session?.user;
 
-  if (loading) {
+  if (isPending) {
     return (
       <main className="min-h-screen flex justify-center items-center">
         <span className="loading loading-spinner loading-lg"></span>
@@ -46,14 +46,14 @@ export default function MyProfile() {
           <div className="card bg-base-100 shadow-lg p-6 md:col-span-1">
             <figure className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
               <Image
-                src={user?.image || defaultAvatar}
-                alt={user?.name || "User"}
+                src={user.image || defaultAvatar}
+                alt={user.name}
                 fill
                 className="object-cover"
               />
             </figure>
-            <h2 className="text-2xl font-bold text-center mb-2">{user?.name}</h2>
-            <p className="text-center text-gray-600 text-sm">{user?.email}</p>
+            <h2 className="text-2xl font-bold text-center mb-2">{user.name}</h2>
+            <p className="text-center text-gray-600 text-sm">{user.email}</p>
 
             <div className="divider my-4"></div>
 
@@ -71,14 +71,14 @@ export default function MyProfile() {
                 <label className="text-sm font-semibold text-gray-600">
                   Name
                 </label>
-                <p className="text-lg mt-1">{user?.name}</p>
+                <p className="text-lg mt-1">{user.name}</p>
               </div>
 
               <div>
                 <label className="text-sm font-semibold text-gray-600">
                   Email
                 </label>
-                <p className="text-lg mt-1">{user?.email}</p>
+                <p className="text-lg mt-1">{user.email}</p>
               </div>
 
               <div>
@@ -88,14 +88,14 @@ export default function MyProfile() {
                 <div className="flex items-center gap-3 mt-1">
                   <div className="relative w-16 h-16 rounded-lg overflow-hidden">
                     <Image
-                      src={user?.image || defaultAvatar}
-                      alt={user?.name || "User"}
+                      src={user.image || defaultAvatar}
+                      alt={user.name}
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="text-sm text-gray-600">
-                    {user?.image ? "Photo uploaded" : "No photo uploaded"}
+                    {user.image ? "Photo uploaded" : "No photo uploaded"}
                   </div>
                 </div>
               </div>

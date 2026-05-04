@@ -8,19 +8,36 @@ import google from "@/assets/google.jpg";
 import github from "@/assets/github.png";
 import { authClient } from "@/lib/auth-client";
 import Toast from "@/components/Toast";
+import { useRouter } from "next/navigation";
 
 const SignInPage = () => {
+  const router = useRouter();
   const [toast, setToast] = useState(null);
 
   const handleGoogleSignin = async () => {
-    const data = await authClient.signIn.social({
-      provider: "google",
-    });
+    try {
+      const data = await authClient.signIn.social({
+        provider: "google",
+      });
+      if (data) {
+        router.push("/my-profile");
+      }
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+    }
   };
+
   const handleGitHubSignin = async () => {
-    const data = await authClient.signIn.social({
-      provider: "github",
-    });
+    try {
+      const data = await authClient.signIn.social({
+        provider: "github",
+      });
+      if (data) {
+        router.push("/my-profile");
+      }
+    } catch (error) {
+      console.error("GitHub sign-in error:", error);
+    }
   };
 
   const {
@@ -28,7 +45,7 @@ const SignInPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
   const handleSignIn = (data) => {
     console.log(data, "data");
     setToast({
