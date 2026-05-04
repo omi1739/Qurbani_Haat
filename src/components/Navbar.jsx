@@ -1,51 +1,34 @@
-"use client";
-
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import logo from "@/assets/logo.png"
+import logo from "@/assets/logo.png";
 import Image from "next/image";
+import NavLink from "./NavLink";
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    // Check if user is logged in from localStorage
-    const storedUser = localStorage.getItem("qurbani_user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      setIsLoggedIn(true);
-    }
-    setLoading(false);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("qurbani_user");
-    setIsLoggedIn(false);
-    setUser(null);
-    router.push("/");
-  };
-
   const navLinks = (
     <>
       <li>
-        <Link href="/" className="hover:text-primary">
+        <NavLink href="/" className="hover:text-primary">
           Home
-        </Link>
+        </NavLink>
       </li>
+
       <li>
-        <Link href="/all-animals" className="hover:text-primary">
+        <NavLink href="/all-animals" className="hover:text-primary">
           All Animals
-        </Link>
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink href="/my-profile" className="hover:text-primary">
+          My Profile
+        </NavLink>
       </li>
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-md sticky top-0 z-50">
+    <div className="navbar bg-base-100 shadow-md sticky top-0 z-50 px-4 lg:px-8">
+      {/* Navbar Start */}
       <div className="navbar-start">
         {/* Mobile Menu */}
         <div className="dropdown">
@@ -65,6 +48,7 @@ const Navbar = () => {
               />
             </svg>
           </div>
+
           <ul
             tabIndex={0}
             className="dropdown-content z-50 menu p-2 shadow bg-base-100 rounded-box w-52"
@@ -74,64 +58,29 @@ const Navbar = () => {
         </div>
 
         {/* Logo */}
-        <Link href="/" className="btn btn-ghost text-xl font-bold">
-          <Image src={logo} width={150} height={100} ></Image> 
+        <Link href="/" className="flex items-center">
+          <Image
+            src={logo}
+            width={60}
+            height={10}
+            alt="QurbaniHaat Logo"
+            className="object-contain"
+          />
         </Link>
       </div>
 
       {/* Desktop Menu */}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+        <ul className="menu menu-horizontal gap-2 px-1 text-base font-medium">
+          {navLinks}
+        </ul>
       </div>
 
-      {/* Auth Section */}
-      <div className="navbar-end gap-2">
-        {!loading && isLoggedIn && user ? (
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full bg-primary text-white flex items-center justify-center">
-                {user.photo ? (
-                  <img
-                    src={user.photo}
-                    alt={user.name}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                ) : (
-                  <span className="text-lg font-bold">
-                    {user.name?.charAt(0).toUpperCase()}
-                  </span>
-                )}
-              </div>
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-50 menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <span className="font-semibold text-sm">{user.name}</span>
-              </li>
-              <li>
-                <Link href="/my-profile">My Profile</Link>
-              </li>
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li>
-            </ul>
-          </div>
-        ) : (
-          <>
-            <Link href="/sign-in" className="btn btn-outline btn-sm">
-              Sign In
-            </Link>
-            <Link href="/sign-up" className="btn btn-neutral btn-sm">
-              Sign Up
-            </Link>
-          </>
-        )}
+      {/* Navbar End */}
+      <div className="navbar-end">
+        <Link href="/sign-in" className="btn btn-outline btn-sm">
+          Sign In
+        </Link>
       </div>
     </div>
   );

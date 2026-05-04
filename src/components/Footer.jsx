@@ -1,7 +1,12 @@
-import { Facebook, Instagram, Twitter, Youtube,PhoneCall, Locate, Mail,  } from "lucide-react";
+import { PhoneCall, Locate, Mail, HeartCrack, Heart,  } from "lucide-react";
 import Link from "next/link";
 import logo from "@/assets/logo.png"
 import Image from "next/image";
+import fb from "@/assets/fb.webp";
+import insta from "@/assets/insta.webp";
+import twit from "@/assets/twitter.png";
+import yt from "@/assets/fb.webp";
+
 
 
 const Footer = () => {
@@ -71,31 +76,31 @@ const Footer = () => {
             <Link
               href={'/'}
               
-              className="btn btn-circle btn-sm btn-ghost hover:btn-primary"
+              className="btn btn-circle btn-sm btn-ghost "
               title="Facebook"
             >
-              
+              <Image src={fb} alt="Facebook" ></Image>
             </Link>
             <Link
               href={'/'}
               
-              className="btn btn-circle btn-sm btn-ghost hover:btn-primary"
+              className="btn btn-circle btn-sm btn-ghost "
               title="Twitter"
             >
-             
+              <Image src={twit} alt="Twitter" ></Image>
             </Link>
             <Link
               href={'/'}
              
-              className="btn btn-circle btn-sm btn-ghost hover:btn-primary"
+              className="btn btn-circle btn-sm btn-ghost "
               title="Instagram"
             >
-             
+              <Image src={insta} alt="Instagram" ></Image>
             </Link>
             <Link
               href={'/'}
               
-              className="btn btn-circle btn-sm btn-ghost hover:btn-primary"
+              className="btn btn-circle btn-sm btn-ghost "
               title="YouTube"
             >
               
@@ -123,9 +128,8 @@ const Footer = () => {
       {/* Bottom Footer */}
       <div className="divider my-0"></div>
       <div className="footer footer-center bg-base-200 text-base-content border-t p-4">
-        <p className="text-sm">
-          © {currentYear} QurbaniHaat. All rights reserved. | Built with ❤️ for
-          the community
+        <p className="text-sm flex">
+          © {currentYear} QurbaniHaat. All rights reserved. | EID MUBARAK <Heart></Heart>
         </p>
       </div>
     </footer>
