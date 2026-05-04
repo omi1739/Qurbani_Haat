@@ -3,12 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import google from "@/assets/google.jpg"
 import github from "@/assets/github.png"
 import { authClient } from "@/lib/auth-client";
+import Toast from "@/components/Toast";
 
 const SignInPage = () => {
-
+  const [toast, setToast] = useState(null);
 
   const handleGoogleSignin = async()=>{
      const data = await authClient.signIn.social({
@@ -26,12 +28,23 @@ const {register, handleSubmit, formState: {errors}} = useForm()
 
     const handleSignIn = (data) =>{
         console.log(data,"data");
-        
+        setToast({
+          message: "✓ Login successful!",
+          type: "success",
+        });
     }
 
 
   return (
     <div className="container mx-auto mt-10 mb-10 min-h-[80vh] flex justify-center items-center bg-slate-100">
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          duration={3000}
+          onClose={() => setToast(null)}
+        />
+      )}
       <div className="p-4 rounded-xl  bg-white ">
         <h1 className="font-bold text-3xl text-center mb-5">Login Your Account</h1>
 
