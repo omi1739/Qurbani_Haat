@@ -1,9 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
 import NavLink from "./NavLink";
+import { authClient } from "@/lib/auth-client";
+import avater from "@/assets/userAvater.jpg";
 
 const Navbar = () => {
+  const { data: session } = authClient.useSession();
+
+  const user = session?.user;
+
   const navLinks = (
     <>
       <li>
@@ -77,15 +85,27 @@ const Navbar = () => {
       </div>
 
       {/* Navbar End */}
-      <div className="navbar-end gap-2">
-        <Link href="/signIn" className="btn btn-outline btn-sm">
-          Sign In
-        </Link>
-        <Link href="/signUp" className="btn btn-outline btn-sm">
-          Sign Up
-        </Link>
+      {user ? (
+        <div className="navbar-end gap-2">
+          <Image
+            src={user.image || avater}
+            width={60}
+            height={60}
+            alt="user image"
+          ></Image>
 
-      </div>
+          <button className="btn">Logout</button>
+        </div>
+      ) : (
+        <div className="navbar-end gap-3">
+          <Link href="/signIn" className="btn btn-outline btn-sm">
+            Sign In
+          </Link>
+          <Link href="/signUp" className="btn btn-outline btn-sm">
+            Sign Up
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,10 +1,19 @@
 'use client';
 
+import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-
+import google from "@/assets/google.jpg"
+import { authClient } from "@/lib/auth-client";
 
 const SignInPage = () => {
+
+
+  const handleGoogleSignin = async()=>{
+     const data = await authClient.signIn.social({
+    provider: "google",
+  });
+  }
 
 
 const {register, handleSubmit, formState: {errors}} = useForm()
@@ -40,6 +49,12 @@ const {register, handleSubmit, formState: {errors}} = useForm()
         </form>
 
         <p className="text-center mt-4">Don't have an account? <Link href={'/signUp'} className="text-red-400">Signup</Link> </p>
+
+      <div className="">
+        <button className="btn w-full mt-3" onClick={handleGoogleSignin}>
+       <Image src={google} alt="google icon" width={30} height={30} ></Image>  Login With Google
+       </button>
+      </div>
 
       </div>
     </div>

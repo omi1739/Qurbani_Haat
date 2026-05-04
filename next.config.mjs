@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
    images: {
-    domains: ["www.shutterstock.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**", // allow all HTTPS domains
+      },
+    ],
   },
 };
 
