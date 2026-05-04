@@ -3,34 +3,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Toast from "@/components/Toast";
+import { useState } from "react";
 import defaultAvatar from "@/assets/userAvater.jpg";
+import { authClient } from "@/lib/auth-client";
 
 export default function UpdateProfile() {
   const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [updating, setUpdating] = useState(false);
-  const [toast, setToast] = useState(null);
+  const { data: session, isPending: loading } = authClient.useSession();
   const [formData, setFormData] = useState({
-    name: "",
-    photo: "",
+    name: session?.user?.name || "",
+    image: session?.user?.image || "",
   });
 
-  useEffect(() => {
-    // Get user data from localStorage
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      setUser(userData);
-      setFormData({
-        name: userData.name || "",
-        photo: userData.photo || "",
-      });
-    }
-    setLoading(false);
-  }, []);
+  const user = session?.user;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,44 +23,6 @@ export default function UpdateProfile() {
       ...prev,
       [name]: value,
     }));
-  };
-
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-
-    // Validate form
-    if (!formData.name) {
-      setToast({
-        message: "Please enter your name",
-        type: "warning",
-      });
-      return;
-    }
-
-    setUpdating(true);
-
-    // Simulate API call
-    setTimeout(() => {
-      // Update localStorage
-      const updatedUser = {
-        ...user,
-        name: formData.name,
-        photo: formData.photo,
-      };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      setUser(updatedUser);
-
-      setUpdating(false);
-      setToast({
-        message: "✓ Profile updated successfully!",
-        type: "success",
-      });
-
-      // Redirect to profile after 2 seconds
-      setTimeout(() => {
-        router.push("/my-profile");
-      }, 2000);
-    }, 1000);
   };
 
   if (loading) {
@@ -106,20 +53,11 @@ export default function UpdateProfile() {
 
   return (
     <main className="min-h-screen bg-base-50 py-12 px-4">
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          duration={4000}
-          onClose={() => setToast(null)}
-        />
-      )}
-
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Update Profile</h1>
 
         <div className="card bg-base-100 shadow-lg p-6 md:p-8">
-          <form onSubmit={handleUpdate} className="space-y-6">
+          <form className="space-y-6">
             {/* Name Field */}
             <div>
               <label className="label">
@@ -145,8 +83,8 @@ export default function UpdateProfile() {
               </label>
               <input
                 type="url"
-                name="photo"
-                value={formData.photo}
+                name="image"
+                value={formData.image}
                 onChange={handleInputChange}
                 placeholder="Enter photo URL (optional)"
                 className="input input-bordered w-full text-lg"
@@ -157,12 +95,12 @@ export default function UpdateProfile() {
               </p>
 
               {/* Photo Preview */}
-              {formData.photo && (
+              {formData.image && (
                 <div className="mt-4">
                   <p className="text-sm font-semibold mb-2">Photo Preview:</p>
                   <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-primary">
                     <Image
-                      src={formData.photo}
+                      src={formData.image}
                       alt="Preview"
                       fill
                       className="object-cover"
@@ -181,17 +119,9 @@ export default function UpdateProfile() {
             <div className="flex gap-3">
               <button
                 type="submit"
-                disabled={updating}
                 className="btn btn-primary flex-1"
               >
-                {updating ? (
-                  <>
-                    <span className="loading loading-spinner loading-sm"></span>
-                    Updating...
-                  </>
-                ) : (
-                  "Update Information"
-                )}
+                Update Information
               </button>
 
               <button
@@ -200,6 +130,14 @@ export default function UpdateProfile() {
                 className="btn btn-outline flex-1"
               >
                 Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  );
+}
               </button>
             </div>
           </form>
