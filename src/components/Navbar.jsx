@@ -12,6 +12,10 @@ const Navbar = () => {
 
   const user = session?.user;
 
+  const handleLogout = async () => {
+    await authClient.signOut();
+  };
+
   const navLinks = (
     <>
       <li>
@@ -94,7 +98,7 @@ const Navbar = () => {
             alt="user image"
           ></Image>
 
-          <button className="btn">Logout</button>
+          <button className="btn" onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <div className="navbar-end gap-3">
