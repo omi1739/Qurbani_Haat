@@ -2,12 +2,28 @@
 
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-
+import google from "@/assets/google.jpg";
+import github from "@/assets/github.png";
+import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
 
 const SignUpPage = () => {
 
 
 const {register, handleSubmit, formState: {errors}} = useForm()
+
+
+ const handleGoogleSignin = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+  const handleGitHubSignin = async () => {
+    const data = await authClient.signIn.social({
+      provider: "github",
+    });
+  };
+
 
     const handleSignUp = (data) =>{
         console.log(data,"data");
@@ -51,6 +67,31 @@ const {register, handleSubmit, formState: {errors}} = useForm()
           </fieldset>
 
             <button className="btn btn-neutral w-full">Sign-Up</button>
+
+            <p className="text-center font-bold text-purple-700">Or</p>
+
+            <div className="">
+                      <button className="btn w-full mt-3" onClick={handleGoogleSignin}>
+                        <Image
+                          src={google}
+                          alt="google icon"
+                          width={30}
+                          height={30}
+                        ></Image>{" "}
+                        Login With Google
+                      </button>
+                    </div>
+                    <div className="">
+                      <button className="btn w-full mt-3" onClick={handleGitHubSignin}>
+                        <Image
+                          src={github}
+                          alt="google icon"
+                          width={30}
+                          height={30}
+                        ></Image>{" "}
+                        Login With Github
+                      </button>
+                    </div>
 
         </form>
 
