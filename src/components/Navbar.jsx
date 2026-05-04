@@ -6,14 +6,21 @@ import Image from "next/image";
 import NavLink from "./NavLink";
 import { authClient } from "@/lib/auth-client";
 import avater from "@/assets/userAvater.jpg";
+import { useState } from "react";
+import Toast from "./Toast";
 
 const Navbar = () => {
   const { data: session } = authClient.useSession();
+  const [toast, setToast] = useState(null);
 
   const user = session?.user;
 
   const handleLogout = async () => {
     await authClient.signOut();
+    setToast({
+      message: "✓ Logged out successfully!",
+      type: "success",
+    });
   };
 
   const navLinks = (
@@ -39,7 +46,16 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-md sticky top-0 z-50 px-4 lg:px-8">
+    <>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          duration={3000}
+          onClose={() => setToast(null)}
+        />
+      )}
+      <div className="navbar bg-base-100 shadow-md sticky top-0 z-50 px-4 lg:px-8">
       {/* Navbar Start */}
       <div className="navbar-start">
         {/* Mobile Menu */}
@@ -111,6 +127,7 @@ const Navbar = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
