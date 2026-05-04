@@ -77,10 +77,14 @@ const Navbar = () => {
       </div>
 
       {/* Navbar End */}
-      <div className="navbar-end">
-        <Link href="/sign-in" className="btn btn-outline btn-sm">
+      <div className="navbar-end gap-2">
+        <Link href="/signIn" className="btn btn-outline btn-sm">
           Sign In
         </Link>
+        <Link href="/signUp" className="btn btn-outline btn-sm">
+          Sign Up
+        </Link>
+
       </div>
     </div>
   );

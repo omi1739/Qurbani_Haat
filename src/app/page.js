@@ -4,6 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import bannerImage from "@/assets/Banner_image.jpg"
+import {
+  HeartPulse,
+  Wheat,
+  Weight,
+  Calendar,
+  Stethoscope,
+  Truck
+} from "lucide-react";
 
 export default function Home() {
   const [animals, setAnimals] = useState([]);
@@ -28,7 +36,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="hero min-h-96 bg-linear-to-r from-primary to-secondary text-primary-content">
+      <section className="hero min-h-96 bg-linear-to-r from-success to-error text-primary-content">
         <div className="hero-content text-center flex-col-reverse lg:flex-row">
           <div>
             <h1 className="text-5xl font-bold mb-6">Welcome to QurbaniHaat</h1>
@@ -77,7 +85,7 @@ export default function Home() {
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute top-2 right-2 badge badge-primary">
+                    <div className="absolute top-2 right-2 badge badge-success">
                       {animal.category}
                     </div>
                   </figure>
@@ -99,12 +107,12 @@ export default function Home() {
                         {animal.location}
                       </div>
                     </div>
-                    <div className="card-price my-3 text-2xl font-bold text-primary">
+                    <div className="card-price my-3 text-2xl font-bold text-error">
                       ৳ {animal.price.toLocaleString()}
                     </div>
                     <Link
                       href={`/all-animals/${animal.id}`}
-                      className="btn btn-primary btn-sm"
+                      className="btn btn-success btn-sm"
                     >
                       View Details
                     </Link>
@@ -132,37 +140,37 @@ export default function Home() {
                 title: 'Health Checks',
                 description:
                   'Always inspect the animal for any signs of illness or injury before booking. Check teeth, eyes, and body condition.',
-                icon: '🏥',
+                icon:  <HeartPulse className="w-8 h-8 text-primary" />,
               },
               {
                 title: 'Proper Feeding',
                 description:
                   'Feed the animal quality fodder and water. Ensure the animal is well-rested and calm during the Qurbani process.',
-                icon: '🌾',
+                icon:  <Wheat className="w-8 h-8 text-primary" />,
               },
               {
                 title: 'Weight Matters',
                 description:
                   'Ensure the animal meets minimum weight requirements. Healthy weight indicates better meat quality.',
-                icon: '⚖️',
+                icon: <Weight className="w-8 h-8 text-primary" />,
               },
               {
                 title: 'Age Verification',
                 description:
                   'Check that the animal is of appropriate age. Younger animals may not meet religious requirements.',
-                icon: '📅',
+                icon: <Calendar className="w-8 h-8 text-primary" />,
               },
               {
                 title: 'Veterinary Care',
                 description:
                   'Get a veterinary certificate to confirm the animal is healthy and fit for Qurbani.',
-                icon: '👨‍⚕️',
+                icon: <Stethoscope className="w-8 h-8 text-primary" />,
               },
               {
                 title: 'Transportation',
                 description:
                   'Transport the animal carefully to avoid stress. Use proper ventilation and comfortable space.',
-                icon: '🚚',
+                icon: <Truck className="w-8 h-8 text-primary" />,
               },
             ].map((tip, idx) => (
               <div key={idx} className="card bg-base-200 shadow-md">

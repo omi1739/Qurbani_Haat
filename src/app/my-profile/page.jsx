@@ -65,7 +65,7 @@ export default function MyProfile() {
 
             <div className="divider my-4"></div>
 
-            <Link href="/update-profile" className="btn btn-primary btn-block">
+            <Link href="/update-profile" className="btn btn-neutral btn-block">
               Update Information
             </Link>
           </div>

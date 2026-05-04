@@ -159,7 +159,7 @@ export default function AnimalDetails() {
               />
             </figure>
             <div className="space-y-3">
-              <div className="badge badge-lg badge-primary">
+              <div className="badge badge-lg badge-success">
                 {animal.category}
               </div>
               <p className="text-sm text-gray-600 leading-relaxed">
@@ -173,7 +173,7 @@ export default function AnimalDetails() {
             {/* Basic Info */}
             <div className="card bg-base-100 shadow-lg p-6">
               <h1 className="text-3xl font-bold mb-2">{animal.name}</h1>
-              <p className="text-lg text-primary font-semibold mb-4">
+              <p className="text-lg text-error font-semibold mb-4">
                 Breed: {animal.breed}
               </p>
 
@@ -200,7 +200,7 @@ export default function AnimalDetails() {
 
               <div className="divider my-4"></div>
 
-              <div className="text-4xl font-bold text-primary">
+              <div className="text-4xl font-bold text-success">
                 ৳ {animal.price.toLocaleString()}
               </div>
             </div>

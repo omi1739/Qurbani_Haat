@@ -60,7 +60,7 @@ export default function AllAnimals() {
   return (
     <main className="min-h-screen bg-base-50">
       {/* Header */}
-      <div className="bg-linear-to-r from-primary to-secondary text-primary-content py-8 px-4">
+      <div className="bg-linear-to-r from-success to-error text-primary-content py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl font-bold mb-2">All Animals</h1>
           <p className="text-lg">
@@ -145,7 +145,7 @@ export default function AllAnimals() {
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute top-2 right-2 badge badge-primary">
+                  <div className="absolute top-2 right-2 badge badge-success">
                     {animal.category}
                   </div>
                   {animal.price < 50000 && (
@@ -187,14 +187,14 @@ export default function AllAnimals() {
 
                   <div className="divider my-2"></div>
 
-                  <div className="text-2xl font-bold text-primary mb-3">
+                  <div className="text-2xl font-bold text-error mb-3">
                     ৳ {animal.price.toLocaleString()}
                   </div>
 
                   <div className="card-actions gap-2">
                     <Link
                       href={`/all-animals/${animal.id}`}
-                      className="btn btn-primary btn-block"
+                      className="btn btn-success btn-block"
                     >
                       View Details & Book
                     </Link>
